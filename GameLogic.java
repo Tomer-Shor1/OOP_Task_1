@@ -388,7 +388,7 @@ public class GameLogic implements PlayableLogic{
                 if (Board[i][j] != null){
                     pieces.add(Board[i][j]);
                     findPositionInList(PositionsList,i,j).getPieces().add(Board[i][j]);
-                    findPositionInList(PositionsList,i,j).setHasPieceInStart();
+                    findPositionInList(PositionsList,i,j);
                 }
             }
         }
