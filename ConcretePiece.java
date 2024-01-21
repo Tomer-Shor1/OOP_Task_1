@@ -8,7 +8,7 @@ public class ConcretePiece implements Piece{
     private int kills = 0;
     private int x;
     private int y;
-    private List<int []> Moves = new ArrayList<int[]>();
+    private List<int []> Moves = new ArrayList<>();
     private int distance ;
 
 

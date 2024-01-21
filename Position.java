@@ -7,10 +7,12 @@ public class Position {
         private int row;
         private int col;
         List<ConcretePiece> pieces = new ArrayList<>();
+        //int hasPieceInStart = 0; - optional if starting pieces does not count as stepped piece
 
         public Position(int row, int col){
             this.row = row;
             this.col = col;
+           // this.hasPieceInStart = 0;
         }
 
         public int getRow(){
@@ -19,14 +21,6 @@ public class Position {
 
         public int getColumn(){
             return col;
-        }
-
-        public void setRow(int row){
-            this.row = row;
-        }
-
-        public void setColumn(int column){
-            this.col = column;
         }
 
         @Override
@@ -43,6 +37,12 @@ public class Position {
         public List<ConcretePiece> getPieces(){
             return this.pieces;
         }
+//        public void setHasPieceInStart(){
+//            hasPieceInStart = 1;
+//        }
+//        public int getHasPieceOnStart(){
+//            return hasPieceInStart;
+//        }
 }
 
 

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class GameLogic implements PlayableLogic{
 
@@ -14,7 +14,7 @@ public class GameLogic implements PlayableLogic{
     private Position KingsPosition;
     public ConcretePlayer firstPlayer = new ConcretePlayer(true);
     public ConcretePlayer secondPlayer = new ConcretePlayer(false);
-    List<ConcretePiece> pieces = new ArrayList<ConcretePiece>();
+    List<ConcretePiece> pieces = new ArrayList<>();
     List<Position> PositionsList = new ArrayList<>();
     Position lastPosition = null;
 
@@ -388,6 +388,7 @@ public class GameLogic implements PlayableLogic{
                 if (Board[i][j] != null){
                     pieces.add(Board[i][j]);
                     findPositionInList(PositionsList,i,j).getPieces().add(Board[i][j]);
+                    findPositionInList(PositionsList,i,j).setHasPieceInStart();
                 }
             }
         }
@@ -400,9 +401,9 @@ public class GameLogic implements PlayableLogic{
 
     //returns a position with given x and y
     public Position findPositionInList(List<Position> list,int x, int y){
-        for (int i = 0 ; i<list.size();i++){
-            if (list.get(i).getRow() == x && list.get(i).getColumn() == y){
-                return list.get(i);
+        for (Position position : list) {
+            if (position.getRow() == x && position.getColumn() == y) {
+                return position;
             }
         }
         return null;
@@ -519,30 +520,28 @@ public class GameLogic implements PlayableLogic{
         //#Prints
 
         //print moves
-        for (int i = 0; i < SortedListOfAllPiecesMoves.size() ; i++){
-            if (SortedListOfAllPiecesMoves.get(i).getOwner().isPlayerOne() == playerWon && SortedListOfAllPiecesMoves.get(i).getMoves().size() >= 2){
-                System.out.print(SortedListOfAllPiecesMoves.get(i).getName() + ":" + "[");
-                for (int j = 0; j<SortedListOfAllPiecesMoves.get(i).getMoves().size();j++){
-                    if (j == SortedListOfAllPiecesMoves.get(i).getMoves().size()-1){
-                        System.out.print("(" + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[0] + "," + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[1] + ")");
-                    }
-                    else {
-                        System.out.print("(" + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[0] + "," + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[1] + "),");
+        for (ConcretePiece sortedListOfAllPiecesMove : SortedListOfAllPiecesMoves) {
+            if (sortedListOfAllPiecesMove.getOwner().isPlayerOne() == playerWon && sortedListOfAllPiecesMove.getMoves().size() >= 2) {
+                System.out.print(sortedListOfAllPiecesMove.getName() + ":" + "[");
+                for (int j = 0; j < sortedListOfAllPiecesMove.getMoves().size(); j++) {
+                    if (j == sortedListOfAllPiecesMove.getMoves().size() - 1) {
+                        System.out.print("(" + sortedListOfAllPiecesMove.getMoves().get(j)[0] + "," + sortedListOfAllPiecesMove.getMoves().get(j)[1] + ")");
+                    } else {
+                        System.out.print("(" + sortedListOfAllPiecesMove.getMoves().get(j)[0] + "," + sortedListOfAllPiecesMove.getMoves().get(j)[1] + "),");
                     }
                 }
                 System.out.println("]");
             }
         }
 
-        for (int i = 0; i < SortedListOfAllPiecesMoves.size() ; i++){
-            if (SortedListOfAllPiecesMoves.get(i).getOwner().isPlayerOne() != playerWon && SortedListOfAllPiecesMoves.get(i).getMoves().size() >= 2){
-                System.out.print(SortedListOfAllPiecesMoves.get(i).getName() + ":" + "[");
-                for (int j = 0; j<SortedListOfAllPiecesMoves.get(i).getMoves().size();j++){
-                    if (j == SortedListOfAllPiecesMoves.get(i).getMoves().size()-1) {
-                        System.out.print("(" + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[0] + "," + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[1] + ")");
-                    }
-                    else {
-                        System.out.print("(" + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[0] + "," + SortedListOfAllPiecesMoves.get(i).getMoves().get(j)[1] + "),");
+        for (ConcretePiece sortedListOfAllPiecesMove : SortedListOfAllPiecesMoves) {
+            if (sortedListOfAllPiecesMove.getOwner().isPlayerOne() != playerWon && sortedListOfAllPiecesMove.getMoves().size() >= 2) {
+                System.out.print(sortedListOfAllPiecesMove.getName() + ":" + "[");
+                for (int j = 0; j < sortedListOfAllPiecesMove.getMoves().size(); j++) {
+                    if (j == sortedListOfAllPiecesMove.getMoves().size() - 1) {
+                        System.out.print("(" + sortedListOfAllPiecesMove.getMoves().get(j)[0] + "," + sortedListOfAllPiecesMove.getMoves().get(j)[1] + ")");
+                    } else {
+                        System.out.print("(" + sortedListOfAllPiecesMove.getMoves().get(j)[0] + "," + sortedListOfAllPiecesMove.getMoves().get(j)[1] + "),");
                     }
                 }
                 System.out.println("]");
@@ -570,7 +569,7 @@ public class GameLogic implements PlayableLogic{
         System.out.println("***************************************************************************");
 
         for (Position listOfAllPosition : listOfAllPositions) {
-            if (listOfAllPosition.getPiecesOnPosition() > 1) {
+            if (listOfAllPosition.getPiecesOnPosition()  > 1) {
                 System.out.println("(" + listOfAllPosition.getRow() + "," + listOfAllPosition.getColumn() + ") " + listOfAllPosition.getPiecesOnPosition() + " pieces");
             }
         }
